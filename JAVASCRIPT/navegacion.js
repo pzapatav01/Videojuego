@@ -1,5 +1,4 @@
 // Función para cambiar entre pantallas del juego
-// Función para cambiar entre pantallas del juego
 function cambiarPantalla(pantallaId) {
     // Detener todos los sonidos de efectos (no la música)
     gestorSonidos.detenerTodos();
