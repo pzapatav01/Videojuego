@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of War ⚔️</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&display=swap">
+</head>
+<body>
+    <div id="welcome-screen" class="game-screen" style="display: block;">
+        <div class="welcome-container">
+            <h1 class="game-title">Echoes of War</h1>
+            <div class="game-logo">
+                <img src="assets/logo.png" alt="Game Logo">
+            </div>
+            <div class="main-menu">
+                <button id="continue-game" class="menu-button glow-effect">Continuar <span class="icon">▶</span></button>
+                <button id="new-game" class="menu-button glow-effect">Nuevo Juego <span class="icon">🆕</span></button>
+                <button id="delete-game" class="menu-button glow-effect">Eliminar Juego <span class="icon">🗑️</span></button>
+                <a href="https://github.com/yourusername/epic-battles" target="_blank" class="menu-button glow-effect">Repositorio <span class="icon">🔗</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="battle-results-screen" class="game-screen">
+        <div class="results-container">
+            <h2 id="battle-result-title" class="section-title"></h2>
+            
+            <div class="results-details">
+                <div class="result-item">
+                    <div class="result-icon">✨</div>
+                    <p>Experiencia ganada: <span id="experience-gained" class="highlight-text"></span></p>
+                </div>
+                <div class="result-item">
+                    <div class="result-icon">💰</div>
+                    <p>Dinero ganado: <span id="gold-earned" class="highlight-text"></span></p>
+                </div>
+                
+                <div id="level-up-notification" class="level-up-box">
+                    <div class="level-up-header">
+                        <div class="level-up-icon">⬆️</div>
+                        <h3>¡Has subido de nivel!</h3>
+                    </div>
+                    <p>Nuevo nivel: <span id="new-level" class="highlight-text"></span></p>
+                    <p>Tus estadísticas han aumentado:</p>
+                    <ul class="stat-increase-list">
+                        <li><span class="stat-icon">❤️</span> +10 Vida</li>
+                        <li><span class="stat-icon">⚔️</span> +2 Ataque</li>
+                        <li><span class="stat-icon">🛡️</span> +1 Defensa</li>
+                        <li><span class="stat-icon">👟</span> +1 Velocidad</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button id="continue-after-battle" class="primary-button pulse-effect">Continuar</button>
+        </div>
+    </div>
+
+    <div id="character-creation-screen" class="game-screen">
+        <div class="creation-container">
+            <h2 class="section-title">Crea tu personaje</h2>
+            
+            <div class="creation-section">
+                <label for="character-name" class="input-label">Nombre:</label>
+                <input type="text" id="character-name" class="fancy-input" placeholder="Escribe el nombre de tu héroe">
+            </div>
+            
+            <div class="creation-section">
+                <h3 class="subsection-title">Apariencia:</h3>
+                <div class="appearance-options">
+                    <div class="appearance-option" data-appearance="athenea">
+                        <div class="appearance-image-container">
+                            <img src="assets/characters/athenea.gif" alt="athenea">
+                        </div>
+                        <p>Athenea</p>
+                    </div>
+                    <div class="appearance-option" data-appearance="bruji">
+                        <div class="appearance-image-container">
+                            <img src="assets/characters/bruji.gif" alt="bruji">
+                        </div>
+                        <p>Bruja</p>
+                    </div>
+                    <div class="appearance-option" data-appearance="hadita">
+                        <div class="appearance-image-container">
+                            <img src="assets/characters/hadita.gif" alt="hadita">
+                        </div>
+                        <p>Hada</p>
+                    </div>
+                    <div class="appearance-option" data-appearance="sirenitaDeHielo">
+                        <div class="appearance-image-container">
+                            <img src="assets/characters/sirenitaDeHielo.gif" alt="sirenitaDeHielo">
+                        </div>
+                        <p>Sirena</p>
+                    </div>
+                    <div class="appearance-option" data-appearance="aslan">
+                        <div class="appearance-image-container">
+                            <img src="assets/characters/aslan.gif" alt="aslan">
+                        </div>
+                        <p>Aslan</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="creation-section">
+                <h3 class="subsection-title">Arma inicial:</h3>
+                <div class="weapon-options">
+                    <div class="weapon-option" data-weapon="1">
+                        <div class="weapon-icon">🗡️</div>
+                        <p>Espada de Madera</p>
+                    </div>
+                    <div class="weapon-option" data-weapon="2">
+                        <div class="weapon-icon">🏹</div>
+                        <p>Arco Corto</p>
+                    </div>
+                    <div class="weapon-option" data-weapon="3">
+                        <div class="weapon-icon">🪄</div>
+                        <p>Bastón de Madera</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="creation-section">
+                <h3 class="subsection-title">Estadísticas:</h3>
+                <div class="stats-header">
+                    <p>Puntos disponibles: <span id="points-remaining" class="highlight-text">20</span></p>
+                </div>
+                
+                <div class="stat-rows">
+                    <div class="stat-row">
+                        <span class="stat-name"><span class="stat-icon">🧬</span> Vida:</span>
+                        <div class="stat-controls">
+                            <button class="stat-decrease" data-stat="vida">-</button>
+                            <span id="health-value" class="stat-value">10</span>
+                            <button class="stat-increase" data-stat="vida">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-name"><span class="stat-icon">⚔️</span> Ataque:</span>
+                        <div class="stat-controls">
+                            <button class="stat-decrease" data-stat="ataque">-</button>
+                            <span id="attack-value" class="stat-value">5</span>
+                            <button class="stat-increase" data-stat="ataque">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-name"><span class="stat-icon">🛡️</span> Defensa:</span>
+                        <div class="stat-controls">
+                            <button class="stat-decrease" data-stat="defensa">-</button>
+                            <span id="defense-value" class="stat-value">3</span>
+                            <button class="stat-increase" data-stat="defensa">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-name"><span class="stat-icon">👟</span> Velocidad:</span>
+                        <div class="stat-controls">
+                            <button class="stat-decrease" data-stat="velocidad">-</button>
+                            <span id="speed-value" class="stat-value">2</span>
+                            <button class="stat-increase" data-stat="velocidad">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="creation-buttons">
+                <button id="back-to-welcome" class="secondary-button">⏪ Volver</button>
+                <button id="create-character" class="primary-button pulse-effect">➕ Crear Personaje</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="inventory-screen" class="game-screen">
+        <div class="inventory-container">
+            <h2 class="section-title">Inventario</h2>
+            
+            <div class="inventory-info">
+                <div class="inventory-space-indicator">
+                    <span class="inventory-icon">🎒</span>
+                    <p>Espacio: <span id="inventory-capacity"></span></p>
+                </div>
+                <div class="inventory-weight-indicator">
+                    <span class="weight-icon">⚖️</span>
+                    <p>Peso: <span id="inventory-weight"></span></p>
+                </div>
+            </div>
+            
+            <div class="equipment-section">
+                <h3 class="subsection-title">Equipado:</h3>
+                <div class="equipped-item-details">
+                    <div class="equipped-item-header">
+                        <h4>Arma: <span id="equipped-weapon-name" class="highlight-text">Ninguna</span></h4>
+                        <p>Ataque: <span id="equipped-weapon-attack" class="highlight-text">+0</span></p>
+                    </div>
+                    <p id="equipped-weapon-description" class="item-description"></p>
+                </div>
+            </div>
+            
+            <div class="inventory-items">
+                <!-- Los items del inventario se generarán dinámicamente aquí -->
+            </div>
+            
+            <div class="inventory-actions">
+                <button id="back-to-lobby-from-inventory" class="secondary-button">Volver a la Ciudad</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="battle-screen" class="game-screen">
+        <div class="battle-container">
+            <div class="battle-header">
+                <h2 class="section-title battle-title">¡Combate!</h2>
+            </div>
+            
+            <div class="battle-arena">
+                <div class="battle-participant player">
+                    <div class="participant-image">
+                        <img id="battle-player-image" src="assets/characters/warrior.gif" alt="Jugador">
+                    </div>
+                    <div class="battle-info">
+                        <p id="battle-player-name" class="participant-name"></p>
+                        <div class="health-bar-container">
+                            <div class="health-bar">
+                                <div id="player-health-bar" class="health-fill"></div>
+                            </div>
+                        </div>
+                        <p class="health-text"><span id="battle-player-hp"></span>/<span id="battle-player-max-hp"></span> HP</p>
+                    </div>
+                </div>
+                
+                <div class="battle-versus">VS</div>
+                
+                <div class="battle-participant enemy">
+                    <div class="participant-image">
+                        <img id="battle-enemy-image" src="" alt="Enemigo">
+                    </div>
+                    <div class="battle-info">
+                        <p id="battle-enemy-name" class="participant-name"></p>
+                        <div class="health-bar-container">
+                            <div class="health-bar">
+                                <div id="enemy-health-bar" class="health-fill"></div>
+                            </div>
+                        </div>
+                        <p class="health-text"><span id="battle-enemy-hp"></span>/<span id="battle-enemy-max-hp"></span> HP</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="battle-message-box">
+                <p id="battle-message"></p>
+            </div>
+            
+            <div class="battle-actions">
+                <button id="attack-button" class="battle-button">
+                    <span class="battle-icon">⚔️</span>
+                    <span>Atacar</span>
+                </button>
+                <button id="defend-button" class="battle-button">
+                    <span class="battle-icon">🛡️</span>
+                    <span>Defender</span>
+                </button>
+                <button id="special-button" class="battle-button">
+                    <span class="battle-icon">✨</span>
+                    <span>Especial</span>
+                </button>
+                <button id="flee-battle" class="secondary-button">
+                    <span class="battle-icon">🏃</span>
+                    <span>Huir</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lobby-screen" class="game-screen">
+        <div class="lobby-container">
+            <h2 class="section-title">Ciudad Principal</h2>
+            
+            <div class="player-info">
+                <div class="player-avatar">
+                    <img id="lobby-player-avatar" src="assets/characters/warrior.gif" alt="Avatar del jugador">
+                </div>
+                <div class="player-stats">
+                    <div class="player-stat">
+                        <span class="stat-icon">👤</span>
+                        <p>Nombre: <span id="lobby-player-name" class="stat-value"></span></p>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">⭐</span>
+                        <p>Nivel: <span id="lobby-player-level" class="stat-value"></span></p>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">📊</span>
+                        <p>Experiencia: <span id="lobby-player-experience" class="stat-value"></span></p>
+                        <div class="experience-bar">
+                            <div id="experience-bar-fill" class="experience-fill"></div>
+                        </div>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">⚔️</span>
+                        <p>Ataque: <span id="lobby-player-attack" class="stat-value"></span></p>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">🛡️</span>
+                        <p>Defensa: <span id="lobby-player-defense" class="stat-value"></span></p>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">👟</span>
+                        <p>Velocidad: <span id="lobby-player-speed" class="stat-value"></span></p>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">💰</span>
+                        <p>Dinero: <span id="lobby-player-gold" class="stat-value"></span> monedas</p>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-icon">❤️</span>
+                        <p>Salud: <span id="lobby-player-health" class="stat-value"></span></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="player-weapon-info">
+                <h3 class="subsection-title">Arma Equipada</h3>
+                <div class="weapon-display">
+                    <p>Arma: <span id="lobby-player-weapon" class="highlight-text">Ninguna</span></p>
+                    <p>Ataque: <span id="lobby-weapon-attack" class="highlight-text">+0</span></p>
+                </div>
+            </div>
+            
+            <div class="lobby-options">
+                <button id="goto-battle" class="action-button">
+                    <span class="action-icon">⚔️</span>
+                    <span>Combate</span>
+                </button>
+                <button id="goto-shop" class="action-button">
+                    <span class="action-icon">🛒</span>
+                    <span>Tienda</span>
+                </button>
+                <button id="goto-inventory" class="action-button">
+                    <span class="action-icon">🎒</span>
+                    <span>Inventario</span>
+                </button>
+                <button id="save-game" class="secondary-button">
+                    <span class="action-icon">💾</span>
+                    <span>Guardar Partida</span>
+                </button>
+                <button class="secondary-button" id="exit-to-main">
+                    <span class="action-icon">🚪</span>
+                    <span>Salir al Menú</span>
+                </button>
+            </div>
+            
+            <!-- Contenedor para mensajes temporales -->
+            <div id="message-container"></div>
+        </div>
+    </div>
+
+    <div id="battle-selection-screen" class="game-screen">
+        <div class="battle-selection-container">
+            <h2 class="section-title">Selecciona un Enemigo</h2>
+            
+            <div class="enemy-selection">
+                <!-- Los enemigos disponibles se generarán dinámicamente aquí -->
+            </div>
+            
+            <div class="battle-selection-actions">
+                <button id="back-to-lobby-from-selection" class="secondary-button">Volver a la Ciudad</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="shop-screen" class="game-screen">
+        <div class="shop-container">
+            <h2 class="section-title">Tienda de Armas</h2>
+            
+            <div class="player-gold">
+                <span class="gold-icon">💰</span>
+                <p>Tu dinero: <span id="shop-player-gold" class="highlight-text"></span> monedas</p>
+            </div>
+            <div class="player-capacity">
+                <span class="weight-icon">⚖️</span>
+                <p>Capacidad: <span id="shop-player-capacity"></span></p>
+            </div>
+            <div class="shop-tabs">
+                <button id="tab-armas" class="shop-tab active">Armas</button>
+                <button id="tab-pociones" class="shop-tab">Pociones</button>
+            </div>
+            
+            <div class="shop-items">
+                <!-- Los items de la tienda se generarán dinámicamente aquí -->
+            </div>
+            
+            <div class="shop-actions">
+                <button id="back-to-lobby-from-shop" class="secondary-button">Volver a la Ciudad</button>
+            </div>
+        </div>
+
+        <div class="volume-control">
+            <label for="music-volume">Volumen de música:</label>
+            <input type="range" id="music-volume" min="0" max="1" step="0.1" value="0.3">
+        </div>
+    </div>
+
+    <!-- Partículas de fondo -->
+    <div id="particles-container"></div>
+
+    <!-- Scripts -->
+    <script src="../JAVASCRIPT/sonidos.js"></script>
+    <script src="../JAVASCRIPT/jugador.js"></script>
+    <script src="../JAVASCRIPT/arma.js"></script>
+    <script src="../JAVASCRIPT/enemigo.js"></script>
+    <script src="../JAVASCRIPT/inventario.js"></script>
+    <script src="../JAVASCRIPT/tienda.js"></script>
+    <script src="../JAVASCRIPT/combate.js"></script>
+    <script src="../JAVASCRIPT/estadoJuego.js"></script>
+    <script src="../JAVASCRIPT/datosJuego.js"></script>
+    <script src="../JAVASCRIPT/navegacion.js"></script>
+    <script src="../JAVASCRIPT/pantallaBienvenida.js"></script>
+    <script src="../JAVASCRIPT/creacionJugador.js"></script>
+    <script src="../JAVASCRIPT/pantallaLobby.js"></script>
+    <script src="../JAVASCRIPT/pantallaTienda.js"></script>
+    <script src="../JAVASCRIPT/pantallaInventario.js"></script>
+    <script src="../JAVASCRIPT/pantallaBatalla.js"></script>
+    <script src="../JAVASCRIPT/particles.js"></script>
+    <script src="../JAVASCRIPT/main.js"></script>
+</body>
+</html>
