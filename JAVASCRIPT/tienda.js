@@ -1,5 +1,3 @@
-
-
 class Tienda {
     constructor() {
         this.armasEnVenta = [];
